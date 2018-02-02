@@ -17,6 +17,8 @@ class HangulJasoSpec extends FlatSpec with Matchers {
     HangulJaso().disassemble('한') should be ("ㅎㅏㄴ")
     HangulJaso().disassemble('글') should be ("ㄱㅡㄹ")
     HangulJaso().disassemble("한글") should be ("ㅎㅏㄴㄱㅡㄹ")
+    HangulJaso().disassemble("쌍자음") should be ("ㅅㅅㅏㅇㅈㅏㅇㅡㅁ")
+    HangulJaso().disassemble("값") should be ("ㄱㅏㅂㅅ")
   }
 
 }

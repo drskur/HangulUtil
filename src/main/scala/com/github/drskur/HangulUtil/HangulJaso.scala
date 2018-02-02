@@ -1,29 +1,13 @@
 package com.github.drskur.HangulUtil
 
-class HangulJaso {
+import java.text.Normalizer
 
-  private val CHOSUNG = Vector(
-    'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
-  )
-
-  private val JUNGSUNG = Vector(
-    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'
-  )
-
-  private val JUNGSUNG_LENGTH = JUNGSUNG.length
-
-  private val JONGSUNG = Vector(
-    ' ', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ',
-    'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
-  )
-
-  private val JONGSUNG_LENGTH = JONGSUNG.length
+class HangulJaso extends HangulMapping {
 
   def isHangul(char: Char): Boolean =
     char >= '가' && char <= '힣'
 
-  def disassemble(char: Char): String = {
-
+  private def disassembleOps(char: Char): String = {
     val diff = char.toInt - '가'.toInt
 
     val chosungIndex = diff / JONGSUNG_LENGTH / JUNGSUNG_LENGTH
@@ -39,11 +23,20 @@ class HangulJaso {
       if (jongsungIndex > 0) List(JONGSUNG(jongsungIndex).toString)
       else List.empty
 
-    (ChoJung ++ Jong).mkString("")
+    (ChoJung ++ Jong)
+      .flatMap { s =>
+        SS_JASO_MAP.getOrElse(s, List(s))
+      }
+      .mkString("")
   }
+
+  def disassemble(char: Char): String =
+    if (isHangul(char)) disassembleOps(char)
+    else char.toString
 
   def disassemble(str: String): String =
     str.map(disassemble).mkString("")
+
 
 
 }
