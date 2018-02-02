@@ -1,5 +1,6 @@
 # HangulUtil
 
+[ ![Download](https://api.bintray.com/packages/drskur/maven/hangulutil/images/download.svg) ](https://bintray.com/drskur/maven/hangulutil/_latestVersion)
 
 ## java.text.Normalizer
  Java 6부터 추가된 Normalizer는 한글 자동완성을 처리하기에 적합한 방법이 아닙니다.
