@@ -78,6 +78,7 @@ str1.disassemble.startsWith(q2.disassemble)
 // true
 
 str2.disassemble.startsWith(q3.disassemble)
+// true
 
 ```
 
