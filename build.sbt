@@ -12,3 +12,5 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayPackageLabels := Seq("hangul", "korean")
+
+crossScalaVersions := Seq("2.11.8","2.10.6")
